@@ -33,15 +33,15 @@ class Tyres_Widget extends WP_Widget {
             <form action="<?php echo home_url( '/' ); ?>" role="search" method="get">
                 <div class="tyre_keyword_container tyre_input_container">
                     <label for="tyres_profile">
-						<?php esc_html_e( 'Search for:', 'tyre' ); ?>
+						<?php esc_html_e( 'Search for:', 'tyres' ); ?>
                     </label>
-                    <input type="text" name="s" placeholder="<?php esc_attr_e( 'Search for products', 'tyre' ); ?>"
+                    <input type="text" name="s" placeholder="<?php esc_attr_e( 'Search for products', 'tyres' ); ?>"
                            value="<?php echo esc_attr( get_search_query() ) ?>">
                 </div>
                 <input type="hidden" name="post_type" value="product">
                 <div class="tyre_profiles_container tyre_input_container">
                     <label for="tyres_profile">
-						<?php esc_html_e( 'Tyre Profile', 'tyre' ); ?>
+						<?php esc_html_e( 'Tyre Profile', 'tyres' ); ?>
                     </label>
                     <select name="tyres_profile" id="tyres_profile">
                         <option value=""><?php esc_html_e( 'All', 'tyres' ); ?></option>
@@ -56,7 +56,7 @@ class Tyres_Widget extends WP_Widget {
                 </div>
                 <div class="tyres_heights_container tyre_input_container">
                     <label for="tyres_heights">
-						<?php esc_html_e( 'Tyre Height', 'tyre' ); ?>
+						<?php esc_html_e( 'Tyre Height', 'tyres' ); ?>
                     </label>
                     <select name="tyres_heights" id="tyres_heights">
                         <option value=""><?php esc_html_e( 'All', 'tyres' ); ?></option>
@@ -71,7 +71,7 @@ class Tyres_Widget extends WP_Widget {
                 </div>
                 <div class="tyres_size_container tyre_input_container">
                     <label for="tyres_size">
-						<?php esc_html_e( 'Tyre Size', 'tyre' ); ?>
+						<?php esc_html_e( 'Tyre Size', 'tyres' ); ?>
                     </label>
                     <select name="tyres_size" id="tyres_size">
                         <option value=""><?php esc_html_e( 'All', 'tyres' ); ?></option>
@@ -84,7 +84,7 @@ class Tyres_Widget extends WP_Widget {
 						} ?>
                     </select>
                 </div>
-                <button type="submit" class="tyres_submit"><?php esc_html_e('Search','tyre'); ?></button>
+                <button type="submit" class="tyres_submit"><?php esc_html_e('Search','tyres'); ?></button>
             </form>
         </div>
 		<?php
