@@ -2,10 +2,20 @@
 msgid ""
 msgstr ""
 "Language: \n"
-"POT-Creation-Date: 2020-05-07 19:23+0000\n"
+"POT-Creation-Date: 2020-05-07 19:35+0000\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: Loco https://localise.biz/"
+
+#: includes/Tyres_Taxonomies.php:16
+msgctxt "taxonomy general name"
+msgid "Heights"
+msgstr ""
+
+#: includes/Tyres_Taxonomies.php:17
+msgctxt "taxonomy singular name"
+msgid "Height"
+msgstr ""
 
 #: includes/Tyres_Taxonomies.php:33
 msgctxt "taxonomy general name"

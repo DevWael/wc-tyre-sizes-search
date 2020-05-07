@@ -13,8 +13,8 @@ class Tyres_Taxonomies {
 
 	public function tyre_height() {
 		$labels = array(
-			'name'          => _x( 'Heights', 'taxonomy general name', 'tyre' ),
-			'singular_name' => _x( 'Height', 'taxonomy singular name', 'tyre' ),
+			'name'          => _x( 'Heights', 'taxonomy general name', 'tyres' ),
+			'singular_name' => _x( 'Height', 'taxonomy singular name', 'tyres' ),
 		);
 
 		$args = array(
