@@ -27,7 +27,7 @@ class Tyres_Public {
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
+	 * @var      string $plugin_name The ID of this plugin.
 	 */
 	private $plugin_name;
 
@@ -36,21 +36,22 @@ class Tyres_Public {
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $version    The current version of this plugin.
+	 * @var      string $version The current version of this plugin.
 	 */
 	private $version;
 
 	/**
 	 * Initialize the class and set its properties.
 	 *
+	 * @param string $plugin_name The name of the plugin.
+	 * @param string $version The version of this plugin.
+	 *
 	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of the plugin.
-	 * @param      string    $version    The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
 
 		$this->plugin_name = $plugin_name;
-		$this->version = $version;
+		$this->version     = $version;
 
 	}
 
@@ -100,4 +101,57 @@ class Tyres_Public {
 
 	}
 
+	/**
+	 * Filter woocommerce search query to support tyres custom taxonomies
+	 * @param $query
+	 *
+	 * @return mixed
+	 */
+	public function search_filter( $query ) {
+		if ( ! isset( $_GET['post_type'] ) or ! isset( $_GET['tyres_heights'] ) or ! isset( $_GET['tyres_size'] ) or ! isset( $_GET['tyres_profile'] ) ) {
+			return $query;
+		}
+		$post_type = $_GET['post_type'];
+		if ( $post_type != 'product' or ! $query->is_search ) {
+			return $query;
+		}
+		$n         = 0;
+		$tax_query = array();
+		if ( ! empty( $_GET['tyres_heights'] ) ) {
+			$tax_query[] = array(
+				'taxonomy' => 'tyre_height',
+				'field'    => 'slug',
+				'terms'    => sanitize_text_field( $_GET['tyres_heights'] ),
+			);
+			$n ++;
+		}
+
+		if ( ! empty( $_GET['tyres_size'] ) ) {
+			$tax_query[] = array(
+				'taxonomy' => 'tyre_size',
+				'field'    => 'slug',
+				'terms'    => sanitize_text_field( $_GET['tyres_size'] ),
+			);
+			$n ++;
+		}
+
+		if ( ! empty( $_GET['tyres_profile'] ) ) {
+			$tax_query[] = array(
+				'taxonomy' => 'tyre_profile',
+				'field'    => 'slug',
+				'terms'    => sanitize_text_field( $_GET['tyres_profile'] ),
+			);
+			$n ++;
+		}
+
+		if ( $n > 1 ) {
+			$tax_query['relation'] = 'AND';
+		}
+
+		if ( $n > 0 ) {
+			$query->set( 'tax_query', $tax_query );
+		}
+
+		return $query;
+	}
 }

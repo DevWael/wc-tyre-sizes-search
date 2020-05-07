@@ -4,7 +4,7 @@ class Tyres_Widget extends WP_Widget {
 	protected $sizes_tax;
 	protected $height_tax;
 	protected $profiles_tax;
-	protected $hide_empty = false;
+	protected $hide_empty = true;
 
 	function __construct() {
 		parent::__construct( 'wc_tyres', __( 'Search for tyres', 'tyres' ), array( 'description' => __( 'Tyres advanced search form', 'tyres' ), ) );
@@ -21,24 +21,24 @@ class Tyres_Widget extends WP_Widget {
 	 */
 	public function widget( $args, $instance ) {
 		$title = apply_filters( 'widget_title', $instance['title'] );
-
 		echo $args['before_widget'];
 		if ( ! empty( $title ) ) {
 			echo $args['before_title'] . $title . $args['after_title'];
 		}
-
 		$profiles = $this->get_profiles();
 		$heights  = $this->get_heights();
 		$sizes    = $this->get_sizes();
 		?>
         <div class="tyres-search-form">
-            <form action="<?php echo home_url(); ?>" method="get">
-                <div class="tyre_input_container">
+            <form action="<?php echo home_url( '/' ); ?>" role="search" method="get">
+                <div class="tyre_keyword_container tyre_input_container">
                     <label for="tyres_profile">
 						<?php esc_html_e( 'Search for:', 'tyre' ); ?>
                     </label>
-                    <input type="text" name="s" placeholder="<?php esc_attr_e( 'Search for products', 'tyre' ); ?>">
+                    <input type="text" name="s" placeholder="<?php esc_attr_e( 'Search for products', 'tyre' ); ?>"
+                           value="<?php echo esc_attr( get_search_query() ) ?>">
                 </div>
+                <input type="hidden" name="post_type" value="product">
                 <div class="tyre_profiles_container tyre_input_container">
                     <label for="tyres_profile">
 						<?php esc_html_e( 'Tyre Profile', 'tyre' ); ?>
@@ -48,7 +48,7 @@ class Tyres_Widget extends WP_Widget {
 						<?php if ( $profiles ) {
 							foreach ( $profiles as $profile ) {
 								?>
-                                <option value="<?php echo esc_attr( $profile->slug ) ?>"><?php echo esc_html( $profile->name ) ?></option>
+                                <option value="<?php echo esc_attr( $profile->slug ) ?>"<?php echo isset( $_GET['tyres_profile'] ) && $_GET['tyres_profile'] == $profile->slug ? ' selected' : ''; ?>><?php echo esc_html( $profile->name ) ?></option>
 								<?php
 							}
 						} ?>
@@ -63,7 +63,7 @@ class Tyres_Widget extends WP_Widget {
 						<?php if ( $heights ) {
 							foreach ( $heights as $height ) {
 								?>
-                                <option value="<?php echo esc_attr( $height->slug ) ?>"><?php echo esc_html( $height->name ) ?></option>
+                                <option value="<?php echo esc_attr( $height->slug ) ?>"<?php echo isset( $_GET['tyres_heights'] ) && $_GET['tyres_heights'] == $height->slug ? ' selected' : ''; ?>><?php echo esc_html( $height->name ) ?></option>
 								<?php
 							}
 						} ?>
@@ -78,14 +78,13 @@ class Tyres_Widget extends WP_Widget {
 						<?php if ( $sizes ) {
 							foreach ( $sizes as $size ) {
 								?>
-                                <option value="<?php echo esc_attr( $size->slug ) ?>"><?php echo esc_html( $size->name ) ?></option>
+                                <option value="<?php echo esc_attr( $size->slug ) ?>"<?php echo isset( $_GET['tyres_size'] ) && $_GET['tyres_size'] == $size->slug ? ' selected' : ''; ?>><?php echo esc_html( $size->name ) ?></option>
 								<?php
 							}
 						} ?>
                     </select>
                 </div>
-                <input type="hidden" name="post_type" value="product">
-                <button type="submit">Search</button>
+                <button type="submit" class="tyres_submit"><?php esc_html_e('Search','tyre'); ?></button>
             </form>
         </div>
 		<?php

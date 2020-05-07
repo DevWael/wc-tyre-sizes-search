@@ -29,3 +29,27 @@
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
+
+/**
+ * cleaning database and delete all taxonomy terms
+ */
+$tyre_height = get_terms( 'tyre_height', array( 'fields' => 'ids', 'hide_empty' => false ) );
+if ( $tyre_height ) {
+	foreach ( $tyre_height as $value ) {
+		wp_delete_term( $value, 'tyre_height' );
+	}
+}
+
+$tyre_profile = get_terms( 'tyre_profile', array( 'fields' => 'ids', 'hide_empty' => false ) );
+if ( $tyre_profile ) {
+	foreach ( $tyre_profile as $value ) {
+		wp_delete_term( $value, 'tyre_profile' );
+	}
+}
+
+$tyre_size = get_terms( 'tyre_size', array( 'fields' => 'ids', 'hide_empty' => false ) );
+if ( $tyre_size ) {
+	foreach ( $tyre_size as $value ) {
+		wp_delete_term( $value, 'tyre_size' );
+	}
+}

@@ -48,6 +48,7 @@ function tyres_autoloader( $class_name ) {
 		return false;
 	}
 }
+
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-tyres-activator.php
@@ -90,4 +91,5 @@ function run_tyres() {
 	$plugin->run();
 
 }
+
 run_tyres();

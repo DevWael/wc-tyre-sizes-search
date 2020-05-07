@@ -30,8 +30,8 @@ class Tyres_Taxonomies {
 
 	public function tyre_profile() {
 		$labels = array(
-			'name'          => _x( 'Profiles', 'taxonomy general name', 'textdomain' ),
-			'singular_name' => _x( 'Profile', 'taxonomy singular name', 'textdomain' ),
+			'name'          => _x( 'Profiles', 'taxonomy general name', 'tyres' ),
+			'singular_name' => _x( 'Profile', 'taxonomy singular name', 'tyres' ),
 		);
 
 		$args = array(
@@ -47,8 +47,8 @@ class Tyres_Taxonomies {
 
 	public function tyre_size() {
 		$labels = array(
-			'name'          => _x( 'Sizes', 'taxonomy general name', 'textdomain' ),
-			'singular_name' => _x( 'size', 'taxonomy singular name', 'textdomain' ),
+			'name'          => _x( 'Sizes', 'taxonomy general name', 'tyres' ),
+			'singular_name' => _x( 'size', 'taxonomy singular name', 'tyres' ),
 		);
 
 		$args = array(
