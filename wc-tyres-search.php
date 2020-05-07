@@ -37,6 +37,17 @@ if ( ! defined( 'WPINC' ) ) {
  */
 define( 'TYRES_VERSION', '1.0.0' );
 
+spl_autoload_register( 'tyres_autoloader' );
+function tyres_autoloader( $class_name ) {
+	$classes_dir = realpath( plugin_dir_path( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR;
+	$class_file  = $class_name . '.php';
+	$class       = $classes_dir . $class_file;
+	if ( file_exists( $class ) ) {
+		require_once $class;
+	} else {
+		return false;
+	}
+}
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-tyres-activator.php

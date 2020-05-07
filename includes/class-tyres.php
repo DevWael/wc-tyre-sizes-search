@@ -58,30 +58,6 @@ class Tyres {
 	protected $version;
 
 	/**
-	 * Define the core functionality of the plugin.
-	 *
-	 * Set the plugin name and the plugin version that can be used throughout the plugin.
-	 * Load the dependencies, define the locale, and set the hooks for the admin area and
-	 * the public-facing side of the site.
-	 *
-	 * @since    1.0.0
-	 */
-	public function __construct() {
-		if ( defined( 'TYRES_VERSION' ) ) {
-			$this->version = TYRES_VERSION;
-		} else {
-			$this->version = '1.0.0';
-		}
-		$this->plugin_name = 'tyres';
-
-		$this->load_dependencies();
-		$this->set_locale();
-		$this->define_admin_hooks();
-		$this->define_public_hooks();
-
-	}
-
-	/**
 	 * Load the required dependencies for this plugin.
 	 *
 	 * Include the following files that make up the plugin:
@@ -126,6 +102,31 @@ class Tyres {
 	}
 
 	/**
+	 * Define the core functionality of the plugin.
+	 *
+	 * Set the plugin name and the plugin version that can be used throughout the plugin.
+	 * Load the dependencies, define the locale, and set the hooks for the admin area and
+	 * the public-facing side of the site.
+	 *
+	 * @since    1.0.0
+	 */
+	public function __construct() {
+		if ( defined( 'TYRES_VERSION' ) ) {
+			$this->version = TYRES_VERSION;
+		} else {
+			$this->version = '1.0.0';
+		}
+		$this->plugin_name = 'tyres';
+
+		$this->load_dependencies();
+		$this->set_locale();
+		$this->define_admin_hooks();
+		$this->define_public_hooks();
+		$this->add_product_taxonomies();
+	}
+
+
+	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
 	 * Uses the Tyres_i18n class in order to set the domain and to register the hook
@@ -150,12 +151,17 @@ class Tyres {
 	 * @access   private
 	 */
 	private function define_admin_hooks() {
-
 		$plugin_admin = new Tyres_Admin( $this->get_plugin_name(), $this->get_version() );
-
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->loader->add_action( 'widgets_init', $plugin_admin, 'register_tyres_widget' );
+	}
 
+	private function add_product_taxonomies() {
+		$tax = new Tyres_Taxonomies( $this->get_plugin_name(), $this->get_version() );
+		$this->loader->add_action( 'init', $tax, 'tyre_height' );
+		$this->loader->add_action( 'init', $tax, 'tyre_profile' );
+		$this->loader->add_action( 'init', $tax, 'tyre_size' );
 	}
 
 
@@ -167,12 +173,9 @@ class Tyres {
 	 * @access   private
 	 */
 	private function define_public_hooks() {
-
 		$plugin_public = new Tyres_Public( $this->get_plugin_name(), $this->get_version() );
-
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-
 	}
 
 	/**

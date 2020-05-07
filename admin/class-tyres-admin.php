@@ -100,4 +100,8 @@ class Tyres_Admin {
 
 	}
 
+	public function register_tyres_widget(){
+		register_widget( 'Tyres_Widget' );
+	}
+
 }
